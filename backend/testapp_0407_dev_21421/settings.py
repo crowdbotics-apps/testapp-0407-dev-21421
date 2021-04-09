@@ -69,6 +69,8 @@ THIRD_PARTY_APPS = [
     # start fcm_django push notifications
     "fcm_django",
     # end fcm_django push notifications
+    'allauth.socialaccount.providers.facebook', # add this line here
+    'allauth.socialaccount.providers.apple', # add this other line
 ]
 INSTALLED_APPS += LOCAL_APPS + THIRD_PARTY_APPS
 
@@ -233,6 +235,13 @@ FCM_DJANGO_SETTINGS = {"FCM_SERVER_KEY": env.str("FCM_SERVER_KEY", "")}
 # Swagger settings for api docs
 SWAGGER_SETTINGS = {
     "DEFAULT_INFO": f"{ROOT_URLCONF}.api_info",
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
 }
 
 if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
